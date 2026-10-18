@@ -1,0 +1,40 @@
+{
+  "build_id": 33,
+  "draft": "Based on the provided information, the calibration offset test (TS-4471) failed at -20\u00b0C with a mean value of 1.472 mV, which is outside the limit of -1.0 to 1.0 mV. The mean value increased by 1.147 mV from the previous build (32) to the current build (33). The changelog for build 33 includes updates to the temperature compensation table and changes to the touch filter and haptics.\n\nThe temperature compensation table update is the most relevant change, as it directly affects the calibration offset test. The previous incident (RDAR-120455) involved a similar update to the temperature compensation table, but it did not cause a regression at the -20\u00b0C temperature. The root cause in that case was that the update only adjusted the hot range above 50\u00b0C, so it did not affect the -20\u00b0C measurements.\n\nGiven this evidence, the failure is likely due to the update to the temperature compensation table, even though it did not cause a regression in the previous incident.\n\nLIKELY CAUSE: firmware/thermal: update temperature compensation table\nCONFIDENCE: medium",
+  "decision": "approved",
+  "final_note": "Based on the provided information, the calibration offset test (TS-4471) failed at -20\u00b0C with a mean value of 1.472 mV, which is outside the limit of -1.0 to 1.0 mV. The mean value increased by 1.147 mV from the previous build (32) to the current build (33). The changelog for build 33 includes updates to the temperature compensation table and changes to the touch filter and haptics.\n\nThe temperature compensation table update is the most relevant change, as it directly affects the calibration offset test. The previous incident (RDAR-120455) involved a similar update to the temperature compensation table, but it did not cause a regression at the -20\u00b0C temperature. The root cause in that case was that the update only adjusted the hot range above 50\u00b0C, so it did not affect the -20\u00b0C measurements.\n\nGiven this evidence, the failure is likely due to the update to the temperature compensation table, even though it did not cause a regression in the previous incident.\n\nLIKELY CAUSE: firmware/thermal: update temperature compensation table\nCONFIDENCE: medium",
+  "trace": [
+    {
+      "step": 1,
+      "tool": "get_failures",
+      "args": {
+        "build_id": 33
+      },
+      "ms": 2,
+      "result_preview": "{\"build_id\": 33, \"previous_build\": 32, \"failures\": [{\"test_id\": \"TS-4471\", \"name\": \"Calibration offset\", \"unit\": \"mV\", \"limit_low\": -1.0, \"limit_high\": 1.0, \"failing\": 8, \"of\": 24, \"sensors\": [\"S01\", "
+    },
+    {
+      "step": 2,
+      "tool": "compare_builds",
+      "args": {
+        "test_id": "TS-4471",
+        "build_a": 32,
+        "build_b": 33,
+        "temp_c": -20
+      },
+      "ms": 1,
+      "result_preview": "{\"test_id\": \"TS-4471\", \"name\": \"Calibration offset\", \"unit\": \"mV\", \"limit_low\": -1.0, \"limit_high\": 1.0, \"filters\": {\"temp_c\": -20, \"sensor_id\": null}, \"builds\": {\"32\": {\"mean\": 0.325, \"min\": 0.028, \""
+    },
+    {
+      "step": 3,
+      "tool": "search_docs",
+      "args": {
+        "test_id": "TS-4471",
+        "query": "TS-4471"
+      },
+      "ms": 121,
+      "result_preview": "{\"query\": \"TS-4471\", \"results\": [{\"chunk_id\": \"WIKI-TESTPLAN#s1r0\", \"title\": \"Touch Sensor Validation Test Plan\", \"type\": \"wiki\", \"score\": 0.0328, \"text\": \"WIKI-TESTPLAN | Touch Sensor Validation Test"
+    }
+  ],
+  "seconds": 10.5
+}

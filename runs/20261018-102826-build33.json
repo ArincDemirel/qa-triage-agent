@@ -1,0 +1,40 @@
+{
+  "build_id": 33,
+  "draft": "Based on the failure pattern and the comparison between build 32 and build 33, the calibration offset test fails only at -20\u00b0C, which is consistent with the cold temperature behavior described in the past incident [RDAR-118204#s1]. The mean value of the failing measurements increased from 0.325 mV to 1.472 mV, which is a significant change. This change aligns with the root cause described in the document, where increased smoothing in the touch filter caused the offset estimate to lag at low temperatures.\n\nThe changelog entry \"firmware/touch_filter: IIR coefficient 0.82 -> 0.65 (smoother scrolling)\" is the most relevant, as it directly relates to the change in the touch filter that could have caused the calibration offset to be out of spec in the cold.\n\nLIKELY CAUSE: firmware/touch_filter: IIR coefficient 0.82 -> 0.65 (smoother scrolling)\nCONFIDENCE: high",
+  "decision": "edited",
+  "final_note": "git add -A && git commit -m \"Working triage agent, design notes, first findings\"",
+  "trace": [
+    {
+      "step": 1,
+      "tool": "get_failures",
+      "args": {
+        "build_id": 33
+      },
+      "ms": 3,
+      "result_preview": "{\"build_id\": 33, \"previous_build\": 32, \"failures\": [{\"test_id\": \"TS-4471\", \"name\": \"Calibration offset\", \"unit\": \"mV\", \"limit_low\": -1.0, \"limit_high\": 1.0, \"failing\": 8, \"of\": 24, \"sensors\": [\"S01\", "
+    },
+    {
+      "step": 2,
+      "tool": "compare_builds",
+      "args": {
+        "test_id": "TS-4471",
+        "build_a": 32,
+        "build_b": 33,
+        "temp_c": -20
+      },
+      "ms": 1,
+      "result_preview": "{\"test_id\": \"TS-4471\", \"name\": \"Calibration offset\", \"unit\": \"mV\", \"limit_low\": -1.0, \"limit_high\": 1.0, \"filters\": {\"temp_c\": -20, \"sensor_id\": null}, \"builds\": {\"32\": {\"mean\": 0.325, \"min\": 0.028, \""
+    },
+    {
+      "step": 3,
+      "tool": "search_docs",
+      "args": {
+        "test_id": "TS-4471",
+        "query": "Calibration offset fails only in the cold"
+      },
+      "ms": 117,
+      "result_preview": "{\"query\": \"Calibration offset fails only in the cold\", \"results\": [{\"chunk_id\": \"RDAR-118204#s0\", \"title\": \"Calibration offset out of spec in the cold after smoothing change\", \"type\": \"radar\", \"score\""
+    }
+  ],
+  "seconds": 11.0
+}

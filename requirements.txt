@@ -1,0 +1,7 @@
+langgraph
+langchain-core
+langchain-ollama
+rank-bm25
+scikit-learn
+numpy
+pytest
